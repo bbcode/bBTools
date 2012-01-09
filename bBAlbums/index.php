@@ -16,7 +16,7 @@ $callback = $_REQUEST['callback'];
 if(!empty($_REQUEST['noload']))
 	die("noload");
 
-if(isset($_REQUEST['album']) && isset($_REQUEST['artist'])) {
+if(!empty($_REQUEST['album']) && !empty($_REQUEST['artist'])) {
 	$output = "";
 	$album = $_REQUEST['album'];
 	$artist = $_REQUEST['artist'];
@@ -165,6 +165,14 @@ if(isset($_REQUEST['album']) && isset($_REQUEST['artist'])) {
 	<body>
 	<form action="<?php echo basename(__FILE__); ?>" method="GET">
 	<fieldset>
+		<?php
+			//set, but empty
+			if(isset($_REQUEST['album']) && isset($_REQUEST['artist'])) {
+				?>
+				<b><font color="red">Please make sure you fill in both the Title and the Artist</font></b>
+				<?php
+			}
+		?>
         <h3><label for="id">Search for Album:</label></h3>
 		<p><input type="text" name="album" value="Random Album Title" onfocus="this.value=''; this.onfocus=null;" ></p>
 		<p><input type="text" name="artist" value="deadmau5" onfocus="this.value=''; this.onfocus=null;" ></p>
