@@ -12,7 +12,7 @@ function makeKeyVal($key, $val) {
 	return "[b]".$key.":[/b] ".$val."\n";
 }
 $json = !empty($_REQUEST['json']);
-if($json)
+if($json && isset($_REQUEST['callback']))
 	$callback = $_REQUEST['callback'];
 if(!empty($_REQUEST['noload']))
 	die("noload");
