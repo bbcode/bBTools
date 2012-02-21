@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>Book Information Search</title>
+<link rel="shortcut icon" href="favicon.ico"> 
+
+<script src="http://code.jquery.com/jquery.min.js" type="text/javascript"></script>
+
+ <script type="text/javascript" src="index.js"></script>
+</head>
+<body>
+<div id="loading" style="z-index: 100; position: absolute; background-color: red; color: #fff; padding: 5px; display: none;">LOADING</div>
+<div id="searchbox">
+	<form action="" onsubmit="return false;">
+	<fieldset>
+        <h3><label for="id">Search Book by ISBN or Keyword:</label></h3>
+		<p>ISBN: <input type="text" id="isbn" name="isbn" />
+			KEYWORD: <input type="text" id="keyword" name="keyword"></p>
+		<input type="checkbox" id="format" value="EPUB" checked>EPUB
+		<input type="checkbox" id="format" value="MOBI" checked>MOBI
+		<input type="checkbox" id="format" value="HTML">HTML
+		<input type="checkbox" id="format" value="PDF">PDF
+		<input type="checkbox" id="format" value="LIT">LIT
+		<input type="checkbox" id="format" value="LRF">LRF
+		<input type="checkbox" id="format" value="RTF">RTF
+		<p>
+			<button id="submitter" class="submit">search</button>
+		</p>
+	</fieldset>
+	</form>
+	<br />
+	Alternatively, you can programmatically retrieve a JSON version of the results by using the following URL:<br /><br />
+	http://bbebooks.cc/search.php?keyword=<strong><em>{YOUR_SEARCH_TERM}</em></strong>&format=<strong><em>{EPUB|MOBI|HTML|PDF|LIT|LRF|RTF}</em></strong>
+</div>
+<div id="singleresult" style="display: none;">
+<center><p class="control"><b><a class="expand" href="#" onclick="searchAgain(); return false;">Click to Search Again</a></center></b></p> 
+<center><font color="red"><i>*PLEASE ENSURE OUTPUT IS CORRECT BEFORE POSTING*</i></font></center><p> 
+<p><center><h2 id="title"></h2></center> 
+<p><center><i>Image Link:</center></i><center><textarea id="imagelink" cols="40" onfocus="selectAll('imagelink')">fjslkajs</textarea></center> 
+<p><center><i>Suggested Tags:</i><p><textarea id="tags" rows="3" cols="115"></textarea></center> 
+<p><hr> 
+<p><img id="thumbnail" class="thumbnail" style="padding:15px" align=left/> 
+<textarea rows="40" cols="115" id="bbcode">
+</textarea> 
+</div> 
+<div id="multipleresults" style="display: none;">
+	<center><p class="control"><b><a class="expand" href="#" onclick="searchAgain(); return false;">Click to Search Again</a></center></b></p> 
+	<div id="multipleresults_inside"></div>
+</div>
