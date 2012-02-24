@@ -261,7 +261,7 @@ class AmazonResult
 		}
         $bbCode .= "[B]Format:[/B] " . $this->Format . "\n";
         $bbCode .= "[/quote][/size]\n";
-        $bbCode .= "[size=3][b][color=#FF3300]Synopsis from Amazon:[/color][/size][/b]\n";
+        $bbCode .= "[size=3][b][color=#FF3300]Synopsis from Amazon:[/color][/b][/size]\n";
         $bbCode .= "[quote][size=2]" . unhtmlentities($this->Review) . "[/size][/quote]\n";
 		if ($this->AuthorGoodReadsUrl != "") {
 			$bbCode .= "[size=4][b]GoodReads Author Information[/b][/size]\n";
