@@ -2,9 +2,15 @@
 //keys
 define("GOODREADS_KEY", "mX4GSwTu0NTZ5pkQrWOyw");
 define("AMAZON_ASSOCIATE_ID", "boocut-20");
-define("AMAZON_PUBLIC", "AKIAI4STSD7K63J2ABAA");
-define("AMAZON_PRIVATE", "fIllcCDuxwSjxGuRxgXnBFgH4syPgnhh8AYdKboy");
-$imgur_keys = array("bfff43342cc7b0247e8aa52676ec17b6", "2e263f3986e1b4e2e4130f68a41621c4", "9e6655dae944b92c731fcd763b7fb795", "29e4d33b086551e033d7fc07a02c5129", "e8a9c9e5d99d81ade9c06172becbdcc8");
+define("AMAZON_PUBLIC", "AKIAJYFOL6ZHB5SUHEUQ");
+define("AMAZON_PRIVATE", "gj5TzvGoImnCEUE8WDjM4ItLfTGkX9lesUV1CUDq");
+$imgur_keys = array(
+	"6b796bbc2196188688e23c21bc6c6bb0",
+	"49cd2570c2c302afb4e700d8e4eeb9ff",
+	"b19a96ba7162e6e01662be5c3f70fa81",
+	"775b30c0ed1a6f5e6484309fbcac6434",
+	"f266dc7c427cad1b4a8fc87351e7ed0a"
+);
 define("IMGUR_KEY", $imgur_keys[array_rand($imgur_keys)]);
 $banned_tags = array("erotica", "books", "essays", "classics", "correspondence", "criticism", "fiction", "foreign.language.fiction", "genre.fiction", "letters", "reading", "women.s.fiction", "used.textbooks", "new", "products", "all.product", "literary", "literature", "world.literature", "british", "short.stories", "poetry", "history", "historical", "reference", "united.states", "canadian.detectives", "cat.sleuths", "readers", "sherlock.holmes");
 
