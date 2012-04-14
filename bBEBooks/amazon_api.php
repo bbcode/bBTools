@@ -115,6 +115,7 @@ class Amazon
 	        $res["ResultCount"] = strval($result->Items->TotalResults);
 			$res["Error"] = "";
         }
+            $res["Completed"] = false;
 	    return $res;
 	}
 	
