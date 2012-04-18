@@ -30,6 +30,7 @@ if (isset($_REQUEST["bbcode"])) {
 
 $Amazon = new Amazon($debug);
 $b = $Amazon->getResults($keyword, $format);
+$b['Completed'] = true;
 
 header('Cache-Control: no-cache, must-revalidate');
 header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
