@@ -15,9 +15,7 @@ define("IMGUR_KEY", $imgur_keys[array_rand($imgur_keys)]);
 $banned_tags = array("erotica", "books", "essays", "classics", "correspondence", "criticism", "fiction", "foreign.language.fiction", "genre.fiction", "letters", "reading", "women.s.fiction", "used.textbooks", "new", "products", "all.product", "literary", "literature", "world.literature", "british", "short.stories", "poetry", "history", "historical", "reference", "united.states", "canadian.detectives", "cat.sleuths", "readers", "sherlock.holmes");
 
 function load_simplexml($url) {
-	$xml = load_resource($url);
-	$result = simplexml_load_string($xml) or die ("xml response not loading");
-	return $result;
+	return simplexml_load_file($url);
 }
 
 function load_resource($url) {
