@@ -39,6 +39,8 @@ $info .= makeKeyVal('Album', $title);
 $info .= makeKeyVal('Artist', $artist);
 $info .= makeKeyVal('Label', $label);
 $info .= makeKeyVal('Release Date', $releasedate);
+if($release->asin)
+	$info .= makeKeyVal('Amazon', 'http://www.amazon.com/dp/'. $release->asin);
 $info .= makeKeyVal('MusicBrainz', htmlspecialchars("$mbpage$mbid"));
 $output = makeBox('Information', $info) . makebox('Track List', $tracktext);
 
