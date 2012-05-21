@@ -1,8 +1,6 @@
 <?php
 $apiroot = 'http://musicbrainz.org/ws/2';
 $mbpage = 'http://musicbrainz.org/release/';
-$mbid = !empty($_GET['mbid']) ? $_GET['mbid'] : null;
-
 function makeBox($title, $content) {
 	$str = "[size=3][b][color=#555555]".$title."[/color][/b][/size]\n";
 	$str .= "[size=2][quote]\n";
@@ -13,6 +11,18 @@ function makeBox($title, $content) {
 function makeKeyVal($key, $val) {
 	return "[b]".$key.":[/b] ".$val."\n";
 }
+function uierror($text) {
+	echo '<center>';
+	echo "<font color='red'><strong>Error: $text</strong></font>";
+	echo '<p><a href="index.php">Perhaps things will be different next time...</a></p>';
+	echo '</center>';
+	die();
+}
+
+
+if(empty($_GET['mbid']))
+	uierror('Release id is required.');
+$mbid = $_GET['mbid'];
 
 $metafields = Array(
 	'artist-credits',
@@ -24,6 +34,8 @@ $metafields = implode('+', $metafields);
 
 $request = "$apiroot/release/$mbid?inc=$metafields";
 $release = simplexml_load_file($request);
+if($release === False)
+	uierror('Entry not found for release id '. htmlspecialchars($mbid));
 assert(sizeof($release) === 1);
 $release = $release->release;
 
