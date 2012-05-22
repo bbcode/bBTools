@@ -1,4 +1,6 @@
 <?php
+//FIXME: Content-Type will change when we add JSONP support.
+header('Content-Type: text/html; charset=utf-8');
 $apiroot = 'http://musicbrainz.org/ws/2';
 $mbpage = 'http://musicbrainz.org/release/';
 $lastfm_key = 'fc1bd1e1c71fb7222b564e6130e3044a';
