@@ -23,14 +23,26 @@ foreach($lastfm->toptags->tag as $tag)
 	$tags[] = $tag->name;
 $tags = implode(', ', $tags);
 
-$tracks = Array();
-foreach($release->{'medium-list'}->{'medium'}->{'track-list'}->track as $track)
-	$tracks[(int)$track->number] = $track->recording->title;
+// Grab/format all discs => tracks
+$discs = Array();
+foreach($release->{'medium-list'}->{'medium'} as $disc) {
+	$tracks = Array();
+	foreach($disc->{'track-list'}->track as $track) {
+		$number = (int)$track->number;
+		$name = $track->recording->title;
+		$tracks[] = "[b]${number}[/b] - $name";
+	}
+	$tracks = implode("\n", $tracks) . "\n";
+	$discs[] = $tracks;
+}
 
-$tracktext = Array();
-foreach($tracks as $number => $name)
-	$tracktext[]= "[b]${number}[/b] - $name";
-$tracktext = implode("\n", $tracktext) . "\n";
+// Add disc numbers for multiple discs
+if(sizeof($discs) > 1) {
+	foreach($discs as $i => &$disc)
+		$disc = '[b]Disc '. ($i+1) .":[/b]\n$disc";
+	unset($disc); // Prevent reference leakage
+}
+$tracklist = implode("\n", $discs);
 
 $info = '';
 $info .= makeKeyVal('Album', $title);
@@ -43,7 +55,7 @@ if($release->asin)
 	$info .= makeKeyVal('Amazon', 'http://www.amazon.com/dp/'. $release->asin);
 $info .= makeKeyVal('MusicBrainz', htmlspecialchars("$mbpage$mbid"));
 $info .= makeKeyVal('Last.fm', $lastfm->url);
-$output = makeBox('Information', $info) . makebox('Track List', $tracktext);
+$output = makeBox('Information', $info) . makebox('Track List', $tracklist);
 
 ?>
 <html>
