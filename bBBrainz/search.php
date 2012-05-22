@@ -5,8 +5,8 @@ require_once('common.php');
 if(empty($_GET['artist']) || empty($_GET['album']))
 	uierror('Artist and album names required.');
 
-$artist = $_GET['artist'];
-$album = $_GET['album'];
+$artist = urlencode($_GET['artist']);
+$album = urlencode($_GET['album']);
 
 $request = "$apiroot/release/?query=artist:$artist AND release:$album";
 $results = simplexml_load_file($request);
@@ -50,9 +50,9 @@ $results = $results->{'release-list'}->release;
 		</table>
 		<form action="search.php" method="GET">
 			<label for="artist">Artist:</label><br/>
-			<input type="text" name="artist" id="artist" size="40" value="<?php echo htmlspecialchars($artist); ?>" /><br/>
+			<input type="text" name="artist" id="artist" size="40" value="<?php echo htmlspecialchars($_GET['artist']); ?>" /><br/>
 			<label for="album">Album:</label><br/>
-			<input type="text" name="album" id="album" size="40" value="<?php echo htmlspecialchars($album); ?>" /><br/>
+			<input type="text" name="album" id="album" size="40" value="<?php echo htmlspecialchars($_GET['album']); ?>" /><br/>
 			<input type="submit" value="Try Harder" />
 		</form>
 	</body>
