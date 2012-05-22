@@ -68,23 +68,24 @@ $output = makeBox('Information', $info) . makebox('Track List', $tracktext);
 <html>
 	<head>
 		<title>bBBrainz</title>
+		<link rel="stylesheet" type="text/css" href="style.css" />
 		<script type="text/javascript">
-			function selectAll(id) {
-				document.getElementById(id).focus();
-				document.getElementById(id).select();
+			function selectAll(node) {
+				node.focus();
+				node.select();
 			}
 		</script>
 	</head>
 	<body>
-	<center><p><b><a href="index.php">Click to Search Again</a></b></p></center>
-	<center><font color="red"><i>*PLEASE ENSURE OUTPUT IS CORRECT BEFORE POSTING*</i></font></center>
-
-	<p><center><h2><?php echo $title." - ".$artist; ?></h2></center> 
-	<p><center><i><textarea id="img" onClick="selectAll('img');" cols="30"><?php echo $image;?></textarea></center></i> 
-	<p><img class="thumbnail" style="padding:15px" align=left src="<?php echo $image;?>"/> 
-	<textarea id="desc" onClick="selectAll('desc');" rows="40" cols="115">
-	<?php echo $output; ?>
-	</textarea> 
-	</div>
+		<div class="heading_info">
+			<a class="index_link" href="index.php">Click to Search Again</a>
+			<em class="warning">*Please ensure output is correct before posting*</em>
+			<h2><?php echo $artist." - ".$title; ?></h2>
+			<textarea onclick="selectAll(this);" cols="30"><?php echo $image;?></textarea>
+		</div>
+		<img class="cover_art" src="<?php echo $image;?>"/> 
+		<textarea onclick="selectAll(this);" rows="40" cols="115">
+		<?php echo $output; ?>
+		</textarea> 
 	</body>
 </html>
