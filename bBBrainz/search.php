@@ -5,14 +5,7 @@ require_once('common.php');
 if(empty($_GET['artist']) || empty($_GET['album']))
 	uierror('Artist and album names required.');
 
-$artist = urlencode($_GET['artist']);
-$album = urlencode($_GET['album']);
-
-$request = "$apiroot/release/?query=artist:$artist AND release:$album";
-$results = simplexml_load_file($request);
-if($results === False)
-	uierror('Could not load response.');
-$results = $results->{'release-list'}->release;
+$results = search_mb_release($_GET['artist'], $_GET['album']);
 ?>
 <html>
 	<head>
