@@ -12,10 +12,16 @@ $label = $release->{'label-info-list'}->{'label-info'}->label->name;
 $title = $release->title;
 $releasedate = $release->date;
 
-// Images are received in ascending dimensions.
 $lastfm = get_lastfm_album($artist, $title);
+
+// Images are received in ascending dimensions.
 $coverurl = $lastfm->image[sizeof($lastfm->image)-1];
 $image = send_imgur_upload($coverurl);
+
+$tags = Array();
+foreach($lastfm->toptags->tag as $tag)
+	$tags[] = $tag->name;
+$tags = implode(', ', $tags);
 
 $tracks = Array();
 foreach($release->{'medium-list'}->{'medium'}->{'track-list'}->track as $track)
@@ -29,6 +35,8 @@ $tracktext = implode("\n", $tracktext) . "\n";
 $info = '';
 $info .= makeKeyVal('Album', $title);
 $info .= makeKeyVal('Artist', $artist);
+if($tags)
+	$info .= makeKeyVal('Tags', $tags);
 $info .= makeKeyVal('Label', $label);
 $info .= makeKeyVal('Release Date', $releasedate);
 if($release->asin)
