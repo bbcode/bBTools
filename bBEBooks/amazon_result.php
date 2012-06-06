@@ -95,8 +95,9 @@ class AmazonResult
 		$tagstring = implode(", ", $this->Tags);
 		if (strlen($tagstring) > 200) {
 			$tagstring = substr(substr($tagstring, 0, 200), 0, strrpos(substr($tagstring, 0, 200), ","));
-		}
-		$this->TagString = $tagstring;
+                }
+                //don't do tags, they suck.
+		$this->TagString = ""; //$tagstring;
 		
     }
 
