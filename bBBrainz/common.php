@@ -1,6 +1,4 @@
 <?php
-//FIXME: Content-Type will change when we add JSONP support.
-header('Content-Type: text/html; charset=utf-8');
 $mbapi = 'http://musicbrainz.org/ws/2';
 $mbpage = 'http://musicbrainz.org/release/';
 $lastfm_key = 'fc1bd1e1c71fb7222b564e6130e3044a';
@@ -81,5 +79,66 @@ function send_imgur_upload($url) {
 	$xmlparse = simplexml_load_string($imgurxml);
 	$image = $xmlparse->links->original[0];
 	return $image;
+}
+
+function process_release($mbid) {
+	$release = get_mb_release($mbid);
+
+	$artist = $release->{'artist-credit'}->{'name-credit'}->artist->name;
+	$label = $release->{'label-info-list'}->{'label-info'}->label->name;
+	$title = $release->title;
+	$releasedate = $release->date;
+
+	$lastfm = get_lastfm_album($artist, $title);
+
+	// Images are received in ascending dimensions.
+	$coverurl = $lastfm->image[sizeof($lastfm->image)-1];
+	$image = send_imgur_upload($coverurl);
+
+	$tags = Array();
+	foreach($lastfm->toptags->tag as $tag)
+		$tags[] = $tag->name;
+	$tags = implode(', ', $tags);
+
+	// Grab/format all discs => tracks
+	$discs = Array();
+	foreach($release->{'medium-list'}->{'medium'} as $disc) {
+		$tracks = Array();
+		foreach($disc->{'track-list'}->track as $track) {
+			$number = (int)$track->number;
+			$name = $track->recording->title;
+			$tracks[] = "[b]${number}[/b] - $name";
+		}
+		$tracks = implode("\n", $tracks) . "\n";
+		$discs[] = $tracks;
+	}
+
+	// Add disc numbers for multiple discs
+	if(sizeof($discs) > 1) {
+		foreach($discs as $i => &$disc)
+			$disc = '[b]Disc '. ($i+1) .":[/b]\n$disc";
+		unset($disc); // Prevent reference leakage
+	}
+	$tracklist = implode("\n", $discs);
+
+	$info = '';
+	$info .= makeKeyVal('Album', $title);
+	$info .= makeKeyVal('Artist', $artist);
+	if($tags)
+		$info .= makeKeyVal('Tags', $tags);
+	$info .= makeKeyVal('Label', $label);
+	$info .= makeKeyVal('Release Date', $releasedate);
+	if($release->asin)
+		$info .= makeKeyVal('Amazon', 'http://www.amazon.com/dp/'. $release->asin);
+	$info .= makeKeyVal('MusicBrainz', htmlspecialchars("$mbpage$mbid"));
+	$info .= makeKeyVal('Last.fm', $lastfm->url);
+	$description = makeBox('Information', $info) . makebox('Track List', $tracklist);
+
+	return Array(
+		'artist' => $artist,
+		'title' => $title,
+		'image' => $image,
+		'description' => $description
+	);
 }
 

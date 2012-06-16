@@ -1,5 +1,6 @@
 <?php
 ini_set('display_errors', 'On');
+header('Content-Type: text/html; charset=utf-8');
 require_once('common.php');
 
 if(empty($_GET['artist']) || empty($_GET['album']))
