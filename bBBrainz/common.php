@@ -82,6 +82,7 @@ function send_imgur_upload($url) {
 }
 
 function process_release($mbid) {
+	global $mbpage;
 	$release = get_mb_release($mbid);
 
 	$artist = $release->{'artist-credit'}->{'name-credit'}->artist->name;
