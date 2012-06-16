@@ -1,8 +1,9 @@
 <?php
+header('Access-Control-Allow-Origin: https://baconbits.org/');
 header('Content-Type: application/javascript; charset=utf-8');
 require_once('common.php');
 
-if(empty($_GET['artist']) || empty($_GET['album']) || empty($_GET['callback']))
+if(empty($_GET['artist']) || empty($_GET['album']))
 	die('artist, album, and callback required');
 
 $results = search_mb_release($_GET['artist'], $_GET['album']);
@@ -19,4 +20,8 @@ $output = json_encode(Array(
 	'year' => $data['year']
 ));
 
-echo "$_GET[callback]($output)";
+if(!empty($_GET['callback']))
+	echo "$_GET[callback]($output)";
+else
+	echo $output;
+
