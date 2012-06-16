@@ -11,7 +11,8 @@
 			<input type="text" name="artist" id="artist" size="40" placeholder="Rebecca Black" /><br/>
 			<label for="album">Album:</label><br/>
 			<input type="text" name="album" id="album" size="40" placeholder="Friday" /><br/>
-			<input type="submit" value="Find MusicBrainz Release" />
+			<input type="submit" value="MusicBrainz Search" />
+			<button name="crispy" value="bacon">I'm Feeling Crispy</button>
 		</form>
 
 		<h3>By release id</h3>

@@ -6,6 +6,13 @@ if(empty($_GET['artist']) || empty($_GET['album']))
 	uierror('Artist and album names required.');
 
 $results = search_mb_release($_GET['artist'], $_GET['album']);
+
+if(!empty($_GET['crispy']) && $_GET['crispy'] === 'bacon') {
+	header('HTTP/1.1 302 Found');
+	header('Location: fetch.php?mbid='.$results[0]['id']);
+	exit(0);
+}
+
 ?>
 <html>
 	<head>
