@@ -89,6 +89,11 @@ function process_release($mbid) {
 	$title = $release->title;
 	$releasedate = $release->date;
 
+	if(preg_match('/\d{4}/', $releasedate, $year))
+		$year = $year[0];
+	else
+		$year = '';
+
 	$lastfm = get_lastfm_album($artist, $title);
 
 	// Images are received in ascending dimensions.
@@ -135,9 +140,10 @@ function process_release($mbid) {
 	$description = makeBox('Information', $info) . makebox('Track List', $tracklist);
 
 	return Array(
-		'artist' => $artist,
-		'title' => $title,
-		'image' => $image,
+		'artist' => (string)$artist,
+		'title' => (string)$title,
+		'image' => (string)$image,
+		'year' => $year,
 		'description' => $description
 	);
 }
