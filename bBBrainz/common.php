@@ -101,11 +101,6 @@ function process_release($mbid) {
 	$coverurl = $lastfm->image[sizeof($lastfm->image)-1];
 	$image = send_imgur_upload($coverurl);
 
-	$tags = Array();
-	foreach($lastfm->toptags->tag as $tag)
-		$tags[] = $tag->name;
-	$tags = implode(', ', $tags);
-
 	// Grab/format all discs => tracks
 	$discs = Array();
 	foreach($release->{'medium-list'}->{'medium'} as $disc) {
@@ -130,8 +125,6 @@ function process_release($mbid) {
 	$info = '';
 	$info .= makeKeyVal('Album', $title);
 	$info .= makeKeyVal('Artist', $artist);
-	if($tags)
-		$info .= makeKeyVal('Tags', $tags);
 	$info .= makeKeyVal('Label', $label);
 	$info .= makeKeyVal('Release Date', $releasedate);
 	if($release->asin)
