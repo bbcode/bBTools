@@ -1,5 +1,4 @@
 <?php
-header('Access-Control-Allow-Origin: https://baconbits.org/');
 header('Content-Type: application/javascript; charset=utf-8');
 require_once('common.php');
 
