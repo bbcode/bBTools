@@ -1,5 +1,6 @@
 <?php
 header('Content-Type: application/javascript; charset=utf-8');
+header('Access-Control-Allow-Origin: https://baconbits.org/');
 require_once('common.php');
 
 if(empty($_GET['artist']) || empty($_GET['album']))
