@@ -1,0 +1,32 @@
+img.cover_art {
+	max-width: 500px;
+	max-height: 500px;
+	float: left;
+	margin: 0 2em;
+}
+
+em.warning {
+	color: red;
+	display: block;
+	text-transform: uppercase;
+}
+
+div.heading_info {
+	text-align: center;
+	line-height: 2em;
+}
+
+a.index_link {
+	font-weight: bold;
+}
+
+table.search_results {
+	width: 100%;
+	text-align: right;
+	margin-bottom: 2em;
+}
+
+table.search_results tr:nth-child(even) {
+	background-color: #f4f4f4;
+}
+
