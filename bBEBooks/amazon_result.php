@@ -234,7 +234,7 @@ class AmazonResult
     public function bbCode() {
         $bbCode = "[size=3][b][color=#FF3300]Book Details:[/color][/b][/size]\n";
         $bbCode .= "[size=2][quote]\n";
-        $bbCode .= "[b]Title:[/b] " . $this->Title . "\n";
+        $bbCode .= "[b]Title:[/b] " . $this->BookTitle . "\n";
         $bbCode .= "[b]Author:[/b] " . $this->Author . "\n";
         if ($this->Genre != "") {
             $bbCode .= "[b]Genre:[/b] " . $this->Genre . "\n";
