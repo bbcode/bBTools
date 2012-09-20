@@ -258,7 +258,7 @@ class AmazonResult
         $bbCode .= "[url=" . $this->LibraryThingsUrl ."]LibraryThing[/url], ";
         $bbCode .= "[url=" . $this->GoogleBooksUrl . "]Google Books[/url]";
 		if ($this->GoodReadsUrl != "") {
-        	$bbCode .= "[url=" . $this->GoodReadsUrl . "]Goodreads[/url]";
+        	$bbCode .= ", [url=" . $this->GoodReadsUrl . "]Goodreads[/url]";
                 }
         $bbCode .= "\n";
         //$bbCode .= "[B]Format:[/B] " . $this->Format . "\n";
