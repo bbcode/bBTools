@@ -234,8 +234,8 @@ class AmazonResult
     public function bbCode() {
         $bbCode = "[size=3][b][color=#FF3300]Book Details:[/color][/b][/size]\n";
         $bbCode .= "[size=2][quote]\n";
-        $bbCode .= "[b]Title:[/b] " . $this->Title . "\n";
-        $bbCode .= "[b]Author:[/b] " . $this->Author . "\n";
+        //$bbCode .= "[b]Title:[/b] " . $this->BookTitle . "\n";
+        //$bbCode .= "[b]Author:[/b] " . $this->Author . "\n";
         if ($this->Genre != "") {
             $bbCode .= "[b]Genre:[/b] " . $this->Genre . "\n";
         }
@@ -256,11 +256,12 @@ class AmazonResult
         $bbCode .= "[b]Number of Pages:[/b] " . $this->NumberOfPages . "\n";
         $bbCode .= "[b]Website:[/b] [url=" . $this->DetailPageUrl . "]Amazon[/url], ";
         $bbCode .= "[url=" . $this->LibraryThingsUrl ."]LibraryThing[/url], ";
-        $bbCode .= "[url=" . $this->GoogleBooksUrl . "]Google Books[/url]\n";
+        $bbCode .= "[url=" . $this->GoogleBooksUrl . "]Google Books[/url]";
 		if ($this->GoodReadsUrl != "") {
-        	$bbCode .= "[url=" . $this->GoodReadsUrl . "]Goodreads[/url]\n";
-		}
-        $bbCode .= "[B]Format:[/B] " . $this->Format . "\n";
+        	$bbCode .= ", [url=" . $this->GoodReadsUrl . "]Goodreads[/url]";
+                }
+        $bbCode .= "\n";
+        //$bbCode .= "[B]Format:[/B] " . $this->Format . "\n";
         $bbCode .= "[/quote][/size]\n";
         $bbCode .= "[size=3][b][color=#FF3300]Synopsis from Amazon:[/color][/b][/size]\n";
         $bbCode .= "[quote][size=2]" . unhtmlentities($this->Review) . "[/size][/quote]\n";
@@ -280,7 +281,7 @@ class AmazonResult
 			}
 			$bbCode .= "\n";
 			$bbCode .= "[b]Author Description:[/b] " . unhtmlentities($this->AuthorGoodReadsBiography) . "\n";
-			$bbCode .= "[b]Author URL:[/b] [url]" . $this->AuthorGoodReadsUrl . "[/url]\n";
+			$bbCode .= "[b]Author URL:[/b] " . $this->AuthorGoodReadsUrl . "\n";
 			$bbCode .= "[/quote]\n";
 		}
         return $bbCode;
