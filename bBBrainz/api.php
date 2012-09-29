@@ -40,7 +40,7 @@ if(empty($_GET['action']) || $_GET['action'] == 'fetch') {
 			'trackcount' => (int)$release->{'medium-list'}->{'track-count'},
 			'country' => (string)$release->country,
 			'date' => (string)$release->date,
-			'mburl' => $mbpage.$release['id']
+			'mburl' => $mb_release_page.$release['id']
 		);
 	}
 }
