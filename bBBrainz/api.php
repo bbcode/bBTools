@@ -1,7 +1,7 @@
 <?php
 require_once('../config.php');
 header('Content-Type: application/javascript; charset=utf-8');
-header('Access-Control-Allow-Origin: https://'.$site_name_this_is_stupid_nobody_cares);
+header('Access-Control-Allow-Origin: *');
 require_once('common.php');
 $output = null;
 
