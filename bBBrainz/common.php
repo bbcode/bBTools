@@ -1,5 +1,5 @@
 <?php
-$mbapi = 'http://musicbrainz.org/ws/2';
+$mbapi = 'http://musicbrainz.baconseed.org/ws/2';
 $mbpage = 'http://musicbrainz.org/release/';
 $lastfm_key = 'fc1bd1e1c71fb7222b564e6130e3044a';
 $imgur_api = 'http://api.imgur.com/2/upload.xml';
