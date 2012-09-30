@@ -1,6 +1,7 @@
 <?php
 $mbapi = 'http://musicbrainz.org/ws/2';
-$mbpage = 'http://musicbrainz.org/release/';
+$mb_release_page = 'http://musicbrainz.org/release/';
+$mb_group_page = 'http://musicbrainz.org/release-group/';
 $lastfm_key = 'fc1bd1e1c71fb7222b564e6130e3044a';
 $imgur_api = 'http://api.imgur.com/2/upload.xml';
 $imgur_keys = Array('9e6655dae944b92c731fcd763b7fb795', '29e4d33b086551e033d7fc07a02c5129', 'e8a9c9e5d99d81ade9c06172becbdcc8');
@@ -32,6 +33,7 @@ function get_mb_release($mbid) {
 		'labels',
 		'discids',
 		'recordings',
+		'release-groups',
 	);
 	$metafields = implode('+', $metafields);
 
@@ -82,13 +84,14 @@ function send_imgur_upload($url) {
 }
 
 function process_release($mbid) {
-	global $mbpage;
+	global $mb_group_page;
 	$release = get_mb_release($mbid);
 
 	$artist = $release->{'artist-credit'}->{'name-credit'}->artist->name;
 	$label = $release->{'label-info-list'}->{'label-info'}->label->name;
 	$title = $release->title;
 	$releasedate = $release->date;
+	$mbgroup = $release->{'release-group'}['id'];
 
 	if(preg_match('/\d{4}/', $releasedate, $year))
 		$year = $year[0];
@@ -129,7 +132,7 @@ function process_release($mbid) {
 	$info .= makeKeyVal('Release Date', $releasedate);
 	if($release->asin)
 		$info .= makeKeyVal('Amazon', 'http://www.amazon.com/dp/'. $release->asin);
-	$info .= makeKeyVal('MusicBrainz', htmlspecialchars("$mbpage$mbid"));
+	$info .= makeKeyVal('MusicBrainz', htmlspecialchars("$mb_group_page$mbgroup"));
 	$info .= makeKeyVal('Last.fm', $lastfm->url);
 	$description = makeBox('Information', $info) . makebox('Track List', $tracklist);
 

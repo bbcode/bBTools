@@ -40,7 +40,7 @@ if(!empty($_GET['crispy']) && $_GET['crispy'] === 'bacon') {
 				echo '<td>'. $release->{'medium-list'}->{'track-count'} .'</td>';
 				echo '<td>'. $release->country .'</td>';
 				echo '<td>'. $release->date .'</td>';
-				echo '<td><a target="_blank" href="'. $mbpage.$release['id'] .'">View on MB</a></td>';
+				echo '<td><a target="_blank" href="'. $mb_release_page.$release['id'] .'">View on MB</a></td>';
 				if($release->asin)
 					echo '<td><a target="_blank" href="http://www.amazon.com/dp/'. $release->asin .'">View on Amazon</a></td>';
 				else
