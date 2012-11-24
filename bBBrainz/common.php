@@ -109,7 +109,7 @@ function process_release($mbid) {
 	foreach($release->{'medium-list'}->{'medium'} as $disc) {
 		$tracks = Array();
 		foreach($disc->{'track-list'}->track as $track) {
-			$number = (int)$track->number;
+			$number = (string)$track->number;
 			$name = $track->recording->title;
 			$tracks[] = "[b]${number}[/b] - $name";
 		}
