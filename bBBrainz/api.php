@@ -24,7 +24,8 @@ if(empty($_GET['action']) || $_GET['action'] == 'fetch') {
 		'description' => $data['description'],
 		'artist' => $data['artist'],
 		'album' => $data['title'],
-		'year' => $data['year']
+		'year' => $data['year'],
+		'release_year' => $data['release_year']
 	);
 } elseif($_GET['action'] == 'search') {
 	if(empty($_GET['artist']) || empty($_GET['album']))

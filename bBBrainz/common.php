@@ -90,17 +90,24 @@ function process_release($mbid) {
 	$artist = $release->{'artist-credit'}->{'name-credit'}->artist->name;
 	$label = $release->{'label-info-list'}->{'label-info'}->label->name;
 	$title = $release->title;
-	$releasedate = $release->date;
 	$mbgroup = $release->{'release-group'}['id'];
 
-	if(preg_match('/\d{4}/', $releasedate, $year))
-		$year = $year[0];
+	$group_date = (string)$release->{'release-group'}->{'first-release-date'};
+	if(preg_match('/\d{4}/', $group_date, $group_year))
+		$group_year = $group_year[0];
 	else
-		$year = '';
+		$group_year = '';
 
-	$lastfm = get_lastfm_album($artist, $title);
+	$release_date = (string)$release->date;
+	if(preg_match('/\d{4}/', $release_date, $release_year))
+		$release_year = $release_year[0];
+	else
+		$release_year = '';
+	if($release_year == $group_year)
+		$release_year = '';
 
 	// Images are received in ascending dimensions.
+	$lastfm = get_lastfm_album($artist, $title);
 	$coverurl = $lastfm->image[sizeof($lastfm->image)-1];
 	$image = send_imgur_upload($coverurl);
 
@@ -129,7 +136,7 @@ function process_release($mbid) {
 	$info .= makeKeyVal('Album', $title);
 	$info .= makeKeyVal('Artist', $artist);
 	$info .= makeKeyVal('Label', $label);
-	$info .= makeKeyVal('Release Date', $releasedate);
+	$info .= makeKeyVal('Release Date', $group_date);
 	if($release->asin)
 		$info .= makeKeyVal('Amazon', 'http://www.amazon.com/dp/'. $release->asin);
 	$info .= makeKeyVal('MusicBrainz', htmlspecialchars("$mb_group_page$mbgroup"));
@@ -140,7 +147,8 @@ function process_release($mbid) {
 		'artist' => (string)$artist,
 		'title' => (string)$title,
 		'image' => (string)$image,
-		'year' => $year,
+		'year' => $group_year,
+		'release_year' => $release_year, // Unused but useful for reissue year.
 		'description' => $description
 	);
 }
