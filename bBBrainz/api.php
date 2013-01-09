@@ -1,5 +1,4 @@
 <?php
-require_once('../config.php');
 header('Content-Type: application/javascript; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 require_once('common.php');
