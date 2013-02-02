@@ -18,7 +18,6 @@ class AmazonResult
     var $ISBN;
     var $EAN;
     var $ASIN;
-    var $SKU;
     var $Label;
     var $Languages;
     var $AmazonImage;
@@ -65,7 +64,11 @@ class AmazonResult
 			// we only process images and grab wiki/goodreads data when this is the only result
             $this->ImgurImage = $this->OldUploadImage($this->AmazonImage);
 			$this->ParseGoodReadsData();
-			$this->AuthorImgurImage = $this->UploadImage($this->AuthorGoodReadsImage);
+			if(strpos($this->AuthorGoodReadsImage, '/nophoto/') === -1) {
+				$this->AuthorImgurImage = $this->UploadImage($this->AuthorGoodReadsImage);
+			} else {
+				$this->AuthorImgurImage = '';
+			}
         }
         $this->Label = strval($attr->Label);
         $langs = array();
@@ -81,7 +84,6 @@ class AmazonResult
         $this->PublicationDate = strval($attr->PublicationDate);
         $this->Publisher = strval($attr->Publisher);
         $this->ReleaseDate = strval($attr->ReleaseDate);
-        $this->SKU = strval($attr->SKU);
         $this->BookTitle = strval($attr->Title);
 		$this->Title = strval($attr->Title) . " - " . $this->Author . " [" . $this->Format . "]";
         $this->LibraryThingsUrl = "http://www.librarything.com/isbn/" . $this->ASIN;
@@ -248,9 +250,6 @@ class AmazonResult
         if ($this->ASIN != "") {
         	$bbCode .= "[b]ASIN:[/b] " . $this->ASIN . "\n";
 		}
-        if ($this->SKU != "") {
-        	$bbCode .= "[b]SKU:[/b] " . $this->SKU . "\n";
-		}
         $bbCode .= "[b]Publisher:[/b] " . $this->Publisher . "\n";
         $bbCode .= "[b]Publication Date:[/b] " . $this->PublicationDate . "\n";
         $bbCode .= "[b]Number of Pages:[/b] " . $this->NumberOfPages . "\n";
@@ -264,9 +263,13 @@ class AmazonResult
         //$bbCode .= "[B]Format:[/B] " . $this->Format . "\n";
         $bbCode .= "[/quote][/size]\n";
         $bbCode .= "[size=3][b][color=#FF3300]Synopsis from Amazon:[/color][/b][/size]\n";
-        $bbCode .= "[quote][size=2]" . unhtmlentities($this->Review) . "[/size][/quote]\n";
-		if ($this->AuthorGoodReadsUrl != "") {
-			$bbCode .= "[size=4][b]GoodReads Author Information[/b][/size]\n";
+	if(strlen($this->Review) > 0) {
+		$bbCode .= "[quote][size=2]" . unhtmlentities($this->Review) . "[/size][/quote]\n";
+	} else {
+		$bbCode .= "[size=7][color=red][b]MISSING DESCRIPTION\n[/b][/color][/size]";
+	}
+		if ($this->AuthorGoodReadsUrl != "" && $this->AuthorGoodReadsBiography != "") {
+			$bbCode .= "[size=3][b][color=#FF3300]GoodReads Author Information:[/color][/b][/size]\n";
 			$bbCode .= "[quote]\n";
 			if ($this->AuthorImgurImage != "") {
 				$bbCode .= "[quote][align=center][img=" . $this->AuthorImgurImage . "][/align][/quote]\n";
@@ -279,8 +282,8 @@ class AmazonResult
 				}
 				$bbCode .= ")";
 			}
-			$bbCode .= "\n";
-			$bbCode .= "[b]Author Description:[/b] " . unhtmlentities($this->AuthorGoodReadsBiography) . "\n";
+			$bbCode .= "\n\n";
+			$bbCode .= "[b]Author Description:[/b] " . unhtmlentities($this->AuthorGoodReadsBiography) . "\n\n";
 			$bbCode .= "[b]Author URL:[/b] " . $this->AuthorGoodReadsUrl . "\n";
 			$bbCode .= "[/quote]\n";
 		}
