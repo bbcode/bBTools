@@ -234,8 +234,8 @@ class AmazonResult
     }
     
     public function bbCode() {
-        $bbCode = "[size=3][b][color=#FF3300]Book Details:[/color][/b][/size]\n";
-        $bbCode .= "[size=2][quote]\n";
+        $bbCode = "[size=3][b]Book Details:[/b][/size]\n";
+        $bbCode .= "[quote]\n";
         //$bbCode .= "[b]Title:[/b] " . $this->BookTitle . "\n";
         //$bbCode .= "[b]Author:[/b] " . $this->Author . "\n";
         if ($this->Genre != "") {
@@ -261,15 +261,15 @@ class AmazonResult
                 }
         $bbCode .= "\n";
         //$bbCode .= "[B]Format:[/B] " . $this->Format . "\n";
-        $bbCode .= "[/quote][/size]\n";
-        $bbCode .= "[size=3][b][color=#FF3300]Synopsis from Amazon:[/color][/b][/size]\n";
+        $bbCode .= "[/quote]\n";
+        $bbCode .= "[size=3][b]Synopsis from Amazon:[/b][/size]\n";
 	if(strlen($this->Review) > 0) {
-		$bbCode .= "[quote][size=2]" . unhtmlentities($this->Review) . "[/size][/quote]\n";
+		$bbCode .= "[quote]" . unhtmlentities($this->Review) . "[/quote]\n";
 	} else {
 		$bbCode .= "[size=7][color=red][b]MISSING DESCRIPTION\n[/b][/color][/size]";
 	}
 		if ($this->AuthorGoodReadsUrl != "" && $this->AuthorGoodReadsBiography != "") {
-			$bbCode .= "[size=3][b][color=#FF3300]GoodReads Author Information:[/color][/b][/size]\n";
+			$bbCode .= "[size=3][b]GoodReads Author Information:[/b][/size]\n";
 			$bbCode .= "[quote]\n";
 			if ($this->AuthorImgurImage != "") {
 				$bbCode .= "[quote][align=center][img=" . $this->AuthorImgurImage . "][/align][/quote]\n";
