@@ -29,68 +29,48 @@ function load_resource($url) {
 
 function unhtmlentities($string)
 {
+    // Replaces entire tag with given values.
+    $tag_replacements = Array(
+        // tag => [opening, closing]
+        'div' => Array('', ''),
+        'sub' => Array('', ''),
+        'sup' => Array('', ''),
+        'b' => Array('[b]', '[/b]'),
+        'strong' => Array('[b]', '[/b]'),
+        'i' => Array('[i]', '[/i]'),
+        'em' => Array('[i]', '[/i]'),
+        'u' => Array('[u]', '[/u]'),
+        'br' => Array("\n", ''),
+        'p' => Array("\n", "\n"),
+        'ul' => Array('[list]', '[/list]'),
+        'ol' => Array('[list=1]', '[/list]'),
+        'li' => Array('[*]', "\n"),
+        'h\\d' => Array("\n", "\n"),
+    );
+
+    foreach($tag_replacements as $tag=>$replacements) {
+		$string = preg_replace("/<\\s*$tag\\b[^>]*>/i", $replacements[0], $string);
+		$string = preg_replace("/<\\s*\\/\\s*$tag\\b[^>]*>/i", $replacements[1], $string);
+    }
+
+    // Strip all non-link tags
+    $string = preg_replace("/<\\s*[^a][^>]*>/i", $replacements[0], $string);
+    $string = preg_replace("/<\\s*\\/\\s*[^a][^>]*>/i", $replacements[1], $string);
+
     // replace numeric entities
     $string = preg_replace('~&#x([0-9a-f]+);~ei', 'chr(hexdec("\\1"))', $string);
     $string = preg_replace('~&#([0-9]+);~e', 'chr("\\1")', $string);
-    $string = str_replace("<b>", "[b]",$string);
-	$string = str_replace("“", "\"", $string);
-	$string = str_replace("”", "\"", $string);
-	$string = str_replace("—", "-", $string);
-	$string = str_replace("’", "'", $string);
-    $string = str_replace("</b>", "[/b]",$string);    
-    $string = str_replace("<B>", "[b]",$string);
-    $string = str_replace("</B>", "[/b]",$string);   
     $string = str_replace(' rel="nofollow"', '', $string);
  	$string = str_replace(' target="_blank"', '', $string);
     $string = str_replace("<a href=", "[url=",$string);
  	$string = str_replace('">', ']', $string);
 	$string = str_replace('[url="', '[url=', $string);
     $string = str_replace("</a>", "[/url]",$string);  
-    $string = str_replace("<sup>", "",$string);
-    $string = str_replace("</sup>", "",$string);  
-    $string = str_replace("<sub>", "",$string);
-    $string = str_replace("</sub>", "",$string);     
-    $string = str_replace("<i>", "[i]",$string);
-    $string = str_replace("<I>", "[i]",$string);
-    $string = str_replace("</I>", "[/i]",$string);
-    $string = str_replace("</i>", "[/i]",$string);
-    $string = str_replace("</b>","[/b]",$string);
-    $string = str_replace("<br>","\n",$string);
-    $string = str_replace("<BR>","\n",$string);    
-	$string = str_replace("<br/>", "\n", $string);
-	$string = str_replace("<br />", "\n", $string);
-    $string = str_replace("<P>","\n",$string);
-    $string = str_replace("<DIV>","",$string);
-    $string = str_replace("<div>","",$string);    
-    $string = str_replace("</div>","",$string);  
-    $string = str_replace("</DIV>","",$string);
-    $string = str_replace("<p>","\n",$string);
-    $string = str_replace("<P>","\n",$string);
-    $string = str_replace("<P style=\"MARGIN: 0px\">","\n",$string);
-    $string = str_replace("</p>","\n",$string);
-    $string = str_replace("</P>","\n",$string);
-    $string = str_replace("<ul>","[list]",$string);
-    $string = str_replace("</ul>","[/list]",$string);
-    $string = str_replace("<li>","[*]",$string);
-    $string = str_replace("</li>","\n",$string);
-    $string = str_replace("<UL>","[list]",$string);
-    $string = str_replace("</UL>","[/list]",$string);
-    $string = str_replace("<LI>","[*]",$string);
-    $string = str_replace("</LI>","\n",$string);
-    $string = str_replace("<DIV style=\"MARGIN: 0px\">","\n",$string);
-    $string = str_replace("<p style=\"MARGIN: 0px\">","\n",$string);
-    $string = str_replace("<p style=\"margin: 0px;\">","\n",$string);
-    $string = str_replace("<em>","[i]",$string);
-    $string = str_replace("</em>","[/i]",$string);
-    $string = str_replace("<EM>","[i]",$string);
-    $string = str_replace("</EM>","[/i]",$string);
-    $string = str_replace("<h3>","\n",$string);
-    $string = str_replace("</h3>","\n",$string);
-    $string = str_replace("<ol>","[list]",$string);
-    $string = str_replace("</ol>","[/list]",$string);
-	$string = str_replace("<p align=\"center\">", "", $string);
-	$string = str_replace("<big>", "", $string);
-	$string = str_replace("</big>", "", $string);
+	$string = str_replace("“", "\"", $string);
+	$string = str_replace("”", "\"", $string);
+	$string = str_replace("—", "-", $string);
+	$string = str_replace("’", "'", $string);
+
     // replace literal entities
     $trans_tbl = get_html_translation_table(HTML_ENTITIES);
     $trans_tbl = array_flip($trans_tbl);
