@@ -3,12 +3,8 @@ $(window).load(function() {
 		$("#loading").show();
 		//ISBN will always take precedence
 		var keyword = jQuery.trim($("#isbn").val());
-		var formats = [];
-		$("input:checked").each(function(item) {
-			formats.push($("input:checked")[item].value);
-		})
 		if (keyword != "") {
-			$.getJSON('search.php?keyword=' + keyword + '&format=' + formats.join(", "), function(data) {
+			$.getJSON('search.php?keyword=' + keyword, function(data) {
 				if (data.Completed) {
 					handleSingleResult(data.Items);
 				} else {

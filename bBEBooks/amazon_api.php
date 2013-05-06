@@ -81,14 +81,14 @@ class Amazon
             "Keywords"=>"$query"); // this is what we are looking for, you could use the book's title instead
 	}
 	
-	public function getResults($keyword, $format) {
+	public function getResults($keyword) {
 	    $parameters = $this->buildParams($keyword);
         $queryUrl = $this->getSignedUrl($parameters);
         $result = load_simplexml($queryUrl) or die ("xml response not loading");
-        return $this->parseResults($result, $queryUrl, $format);
+        return $this->parseResults($result, $queryUrl);
 	}
 	
-	public function parseResults($result, $queryurl, $format) {
+	public function parseResults($result, $queryurl) {
 	    $res = array();
 	    if (strtolower($result->Items->Request->IsValid) == "false") {
 	        $res["Completed"] = "False";
@@ -105,7 +105,7 @@ class Amazon
 				$completed = false;
 			}
 	        $res["Completed"] = $result->Items->TotalResults[0] == 1;
-	        $res["Items"] = $this->parseItems($result->Items, $completed, $format);
+	        $res["Items"] = $this->parseItems($result->Items, $completed);
 	        if ($this->debug) {
                 $res["RequestedAmazonURL"] = $queryurl;
             }
@@ -120,11 +120,11 @@ class Amazon
 	    return $res;
 	}
 	
-	public function parseItems($items, $completed = false, $format) {
+	public function parseItems($items, $completed = false) {
 	    $list = array();
 	    
 	    foreach($items->Item as $item) {
-	        $list[] = new AmazonResult($item, $completed, $format);
+	        $list[] = new AmazonResult($item, $completed);
 	    }
 	    return $list;
 	}

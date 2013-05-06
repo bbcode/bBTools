@@ -9,7 +9,6 @@ class AmazonResult
 	var $AuthorGoodReadsBiography;
 	var $AuthorBirthDate;
 	var $AuthorDeathDate;
-	var $Format;
 	var $Binding;
     var $Title;
 	var $PublicationDate;
@@ -35,7 +34,7 @@ class AmazonResult
 	var $BBTitle;
 	
 
-	public function __construct($item, $completed = false, $format = "") {
+	public function __construct($item, $completed = false) {
 	    $link = explode("%3F", strval($item->DetailPageURL));
 	    if (count($link) > 0) {
 	        $this->DetailPageUrl = $link[0];
@@ -44,7 +43,6 @@ class AmazonResult
         }
         
         $this->AmazonImage = strval($item->LargeImage->URL);
-        $this->Format = $format;
 	    $attr = $item->ItemAttributes;
         $this->Author = strval($attr->Author[0]);
 		$this->Tags = array();
@@ -85,7 +83,7 @@ class AmazonResult
         $this->Publisher = strval($attr->Publisher);
         $this->ReleaseDate = strval($attr->ReleaseDate);
         $this->BookTitle = strval($attr->Title);
-		$this->Title = strval($attr->Title) . " - " . $this->Author . " [" . $this->Format . "]";
+		$this->Title = strval($attr->Title) . " - " . $this->Author;
         $this->LibraryThingsUrl = "http://www.librarything.com/isbn/" . $this->ASIN;
         $this->GoogleBooksUrl = "http://books.google.com/books?vid=ISBN" . $this->ASIN;
         if (count($item->EditorialReviews) > 0) {
@@ -260,7 +258,6 @@ class AmazonResult
         	$bbCode .= ", [url=" . $this->GoodReadsUrl . "]Goodreads[/url]";
                 }
         $bbCode .= "\n";
-        //$bbCode .= "[B]Format:[/B] " . $this->Format . "\n";
         $bbCode .= "[/quote]\n";
         $bbCode .= "[size=3][b]Synopsis from Amazon:[/b][/size]\n";
 	if(strlen($this->Review) > 0) {

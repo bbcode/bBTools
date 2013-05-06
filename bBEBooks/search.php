@@ -14,15 +14,10 @@ if (isset($_GET["debug"])) {
 	}
 }
 $keyword = "";
-$format = "";
 $bbcode = "false";
 if (isset($_REQUEST["keyword"])) {
 	$keyword = $_REQUEST["keyword"];
 	$keyword = preg_replace('/\\D/', '', $keyword);
-}
-
-if (isset($_REQUEST["format"])) {
-	$format = $_REQUEST["format"];
 }
 
 if (isset($_REQUEST["bbcode"])) {
@@ -30,7 +25,7 @@ if (isset($_REQUEST["bbcode"])) {
 }
 
 $Amazon = new Amazon($debug);
-$b = $Amazon->getResults($keyword, $format);
+$b = $Amazon->getResults($keyword);
 $b['Completed'] = true;
 
 header('Cache-Control: no-cache, must-revalidate');
