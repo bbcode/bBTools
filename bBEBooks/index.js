@@ -3,9 +3,6 @@ $(window).load(function() {
 		$("#loading").show();
 		//ISBN will always take precedence
 		var keyword = jQuery.trim($("#isbn").val());
-		if (keyword == "") {
-			keyword = jQuery.trim($("#keyword").val());
-		}
 		var formats = [];
 		$("input:checked").each(function(item) {
 			formats.push($("input:checked")[item].value);
@@ -19,7 +16,7 @@ $(window).load(function() {
 				}
 			});
 		} else {
-			alert("Please enter an ISBN or a keyword.");
+			alert("Please enter an ISBN.");
 		}
 	});
 });

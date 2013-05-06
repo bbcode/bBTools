@@ -18,6 +18,7 @@ $format = "";
 $bbcode = "false";
 if (isset($_REQUEST["keyword"])) {
 	$keyword = $_REQUEST["keyword"];
+	$keyword = preg_replace('/\\D/', '', $keyword);
 }
 
 if (isset($_REQUEST["format"])) {
