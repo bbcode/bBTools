@@ -17,7 +17,7 @@ $keyword = "";
 $bbcode = "false";
 if (isset($_REQUEST["keyword"])) {
 	$keyword = $_REQUEST["keyword"];
-	$keyword = preg_replace('/\\D/', '', $keyword);
+	$keyword = preg_replace('/[^0-9Xx]/', '', $keyword);
 }
 
 if (isset($_REQUEST["bbcode"])) {
