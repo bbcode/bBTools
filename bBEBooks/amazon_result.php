@@ -259,11 +259,11 @@ class AmazonResult
                 }
         $bbCode .= "\n";
         $bbCode .= "[/quote]\n";
-        $bbCode .= "[size=3][b]Synopsis from Amazon:[/b][/size]\n";
+        $bbCode .= "[size=3][b]Synopsis:[/b][/size]\n";
 	if(strlen($this->Review) > 0) {
 		$bbCode .= "[quote]" . unhtmlentities($this->Review) . "[/quote]\n";
 	} else {
-		$bbCode .= "[size=7][color=red][b]MISSING DESCRIPTION\n[/b][/color][/size]";
+		$bbCode .= "\n[size=7][color=red][b]MISSING DESCRIPTION\n[/b][/color][/size]\n\n";
 	}
 		if ($this->AuthorGoodReadsUrl != "" && $this->AuthorGoodReadsBiography != "") {
 			$bbCode .= "[size=3][b]GoodReads Author Information:[/b][/size]\n";
